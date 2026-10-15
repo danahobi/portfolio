@@ -1,0 +1,151 @@
+import React from 'react';
+import { Github, Linkedin, Facebook, MessageSquare, ArrowUp } from 'lucide-react';
+import { PROFILE_INFO, SERVICES } from '../data/portfolioData';
+
+export const Footer: React.FC = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const navLinks = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Services', href: '#services' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Process', href: '#process' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Pricing', href: '#pricing' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  return (
+    <footer className="bg-white dark:bg-[#0b0f17] text-neutral-600 dark:text-neutral-400 border-t border-neutral-200/80 dark:border-[#1e293b] transition-colors" role="contentinfo">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
+          
+          {/* Brand & Intro (Cols 1-5) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs">
+                {PROFILE_INFO.shortName}
+              </div>
+              <span className="text-lg font-bold tracking-tight text-neutral-950 dark:text-white">
+                {PROFILE_INFO.name}
+              </span>
+            </div>
+            
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm">
+              Freelance web designer and frontend developer creating responsive websites, appointment booking systems, and clean web app interfaces with Google AI Studio.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href={PROFILE_INFO.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="GitHub profile"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href={PROFILE_INFO.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="LinkedIn profile"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href={PROFILE_INFO.socials.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="Facebook profile"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href={PROFILE_INFO.socials.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-emerald-50 dark:hover:bg-emerald-950/60 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="WhatsApp chat"
+              >
+                <MessageSquare className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links (Cols 6-8) */}
+          <div className="lg:col-span-3">
+            <h4 className="text-xs uppercase font-bold tracking-wider text-neutral-900 dark:text-white mb-4">
+              Navigation
+            </h4>
+            <ul className="space-y-2.5 text-xs sm:text-sm">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services Links (Cols 9-12) */}
+          <div className="lg:col-span-4">
+            <h4 className="text-xs uppercase font-bold tracking-wider text-neutral-900 dark:text-white mb-4">
+              Services
+            </h4>
+            <ul className="space-y-2.5 text-xs sm:text-sm">
+              {SERVICES.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href="#contact"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  >
+                    {s.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-neutral-200/80 dark:border-[#1e293b] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500">
+          <div>
+            © {new Date().getFullYear()} {PROFILE_INFO.name}. All rights reserved.
+          </div>
+
+          <div className="flex items-center gap-1">
+            <span>Made with care using</span>
+            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Google AI Studio</span>
+            <span>& modern frontend code.</span>
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="p-2 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-neutral-200 dark:hover:bg-[#202b44] text-neutral-700 dark:text-neutral-300 transition-colors flex items-center gap-1.5 cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-500"
+            aria-label="Scroll back to top"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+      </div>
+    </footer>
+  );
+};
