@@ -1,7 +1,8 @@
 import React from 'react';
-import { ArrowRight, Sparkles, Code2, Laptop, CalendarCheck, BarChart3, Bot } from 'lucide-react';
-import { PROFILE_INFO } from '../data/portfolioData';
+import { ArrowRight, Sparkles, Code2, Laptop, CalendarCheck, BarChart3, Bot, HeartHandshake, ExternalLink } from 'lucide-react';
 import { Button } from './ui/Button';
+import { usePortfolioData } from '../context/PortfolioDataContext';
+import { MessengerIcon } from './icons/MessengerIcon';
 
 interface HeroProps {
   onViewWorkClick: () => void;
@@ -9,6 +10,8 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onViewWorkClick, onHireMeClick }) => {
+  const { profile } = usePortfolioData();
+  const messengerLink = profile.messengerUrl || profile.socials?.messenger || 'https://m.me/happyperson.dev';
   const capabilities = [
     { label: "Web UI Design", icon: Laptop },
     { label: "Responsive Websites", icon: Code2 },
@@ -23,7 +26,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewWorkClick, onHireMeClick }) =>
       className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden transition-colors"
       aria-label="Hero Section"
     >
-      {/* Subtle background ambient gradients (performant compositor blur) */}
+      {/* Subtle background ambient gradients */}
       <div 
         aria-hidden="true" 
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
@@ -34,32 +37,48 @@ export const Hero: React.FC<HeroProps> = ({ onViewWorkClick, onHireMeClick }) =>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Split Hero: Typography & Primary Action (Left) + Visual Portrait Frame (Right) */}
+        {/* Split Hero: Typography & Primary Action (Left) + Mascot Frame (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           {/* Left Column: Typographic Hierarchy */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
-            {/* Clean kicker */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-100 dark:bg-[#131b2e] border border-neutral-200/80 dark:border-[#1e293b] text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-6 shadow-2xs">
+            {/* Friendly Mascot Kicker */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-[#131b2e] border border-blue-200/80 dark:border-[#1e293b] text-xs font-semibold text-blue-700 dark:text-blue-300 mb-6 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Google AI Studio & Modern Web UI Specialist</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-              <span className="text-neutral-500 dark:text-neutral-400">Available for hire</span>
+              <span>Happy Person · Independent Creative Web Studio</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-neutral-500 dark:text-neutral-400">Available for projects</span>
             </div>
 
             {/* SINGLE H1 on Homepage */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-neutral-950 dark:text-white leading-[1.12] mb-6 max-w-2xl text-balance">
-              {PROFILE_INFO.headline}
+              {profile.headline}
             </h1>
 
             {/* Subheading */}
             <p className="text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed mb-8 max-w-xl">
-              {PROFILE_INFO.subheading}
+              {profile.subheading}
             </p>
 
-            {/* Two Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
+            {/* Action Buttons with Prominent Messenger CTA */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10 w-full sm:w-auto">
+              {/* Prominent Primary Messenger Button */}
+              <a
+                href={messengerLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-[#0084FF] via-[#0072F5] to-[#0062E0] hover:from-[#0074E8] hover:to-[#0052C8] shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 group cursor-pointer w-full sm:w-auto"
+                aria-label="Message on Facebook Messenger (Fastest Reply)"
+              >
+                <MessengerIcon className="w-5 h-5 shrink-0 fill-white" />
+                <span>Message on Messenger</span>
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] font-semibold text-white uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Fastest
+                </span>
+              </a>
+
               <Button
                 variant="primary"
                 size="lg"
@@ -76,11 +95,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewWorkClick, onHireMeClick }) =>
                 onClick={onHireMeClick}
                 className="w-full sm:w-auto"
               >
-                Hire Me
+                Start a Project
               </Button>
             </div>
 
-            {/* Core Capability Badges (Quiet text cards with subtle icons) */}
+            {/* Core Capability Badges */}
             <div className="w-full pt-6 border-t border-neutral-200/80 dark:border-[#1e293b]">
               <div className="text-xs uppercase tracking-wider font-semibold text-neutral-400 dark:text-neutral-500 mb-3">
                 Core Capabilities
@@ -103,50 +122,52 @@ export const Hero: React.FC<HeroProps> = ({ onViewWorkClick, onHireMeClick }) =>
 
           </div>
 
-          {/* Right Column: Professional Profile Image Frame */}
+          {/* Right Column: Cat-Monster Mascot Avatar Frame */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-md">
               
               {/* Outer soft ambient halo */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-3xl blur-lg opacity-20 dark:opacity-30 transition duration-500"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-teal-400 rounded-3xl blur-xl opacity-25 dark:opacity-35 transition duration-500"></div>
 
               {/* Card Container */}
-              <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-[#111726] border border-neutral-200/90 dark:border-[#1e293b] shadow-xl">
+              <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-[#111726] border border-neutral-200/90 dark:border-[#1e293b] shadow-2xl">
                 
-                {/* Image Area - Main hero image is NOT lazy-loaded to prevent LCP delay */}
-                <div className="relative aspect-square w-full bg-neutral-100 dark:bg-[#171f33] overflow-hidden">
+                {/* Mascot Image Area - Eagerly loaded for performance */}
+                <div className="relative aspect-square w-full bg-gradient-to-b from-blue-50/50 to-neutral-100 dark:from-[#131b2e] dark:to-[#0e1422] overflow-hidden">
                   <img
-                    src={PROFILE_INFO.avatar}
-                    alt="Alex Vance, Freelance Web Designer and Developer"
+                    src={profile.avatar}
+                    alt="Happy Person friendly cat-monster mascot avatar waving in creative studio"
                     width={480}
                     height={480}
                     loading="eager"
                     decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.display = 'none';
-                    }}
                   />
                   
                   {/* Floating Availability Pill */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-[#111726]/95 backdrop-blur-md px-4 py-3 rounded-xl border border-neutral-200/80 dark:border-[#1e293b] flex items-center justify-between shadow-lg">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-[#111726]/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-neutral-200/80 dark:border-[#1e293b] flex items-center justify-between shadow-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
                       <div className="text-xs">
-                        <p className="font-semibold text-neutral-900 dark:text-white">Accepting New Projects</p>
-                        <p className="text-neutral-500 dark:text-neutral-400">Fast delivery · 1-3 weeks turnaround</p>
+                        <p className="font-bold text-neutral-900 dark:text-white">Happy Person Studio</p>
+                        <p className="text-neutral-500 dark:text-neutral-400">Independent & ready for new projects</p>
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-blue-600 dark:text-blue-400">2026</span>
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-900/40">
+                      2026
+                    </span>
                   </div>
                 </div>
 
                 {/* Sub-card snippet */}
                 <div className="p-4 sm:p-5 border-t border-neutral-100 dark:border-[#1e293b] bg-neutral-50/70 dark:bg-[#0e1422]">
                   <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
-                    <span className="font-medium text-neutral-900 dark:text-neutral-200">Freelance Web Specialist</span>
-                    <span>Austin, TX · Remote Worldwide</span>
+                    <div className="flex items-center gap-1.5 font-medium text-neutral-900 dark:text-neutral-200">
+                      <HeartHandshake className="w-3.5 h-3.5 text-blue-500" />
+                      <span>Friendly, creative & reliable</span>
+                    </div>
+                    <span>Remote Worldwide</span>
                   </div>
                 </div>
 

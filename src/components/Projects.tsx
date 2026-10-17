@@ -4,8 +4,10 @@ import { PROJECTS } from '../data/portfolioData';
 import { Project, ProjectCategory } from '../types';
 import { ProjectModal } from './ProjectModal';
 import { SectionHeader } from './ui/SectionHeader';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 export const Projects: React.FC = () => {
+  const { projects } = usePortfolioData();
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('All');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,10 +22,14 @@ export const Projects: React.FC = () => {
     'Dashboard UI'
   ];
 
+  const visibleProjects = useMemo(() => {
+    return projects.filter((p) => !p.hidden);
+  }, [projects]);
+
   const filteredProjects = useMemo(() => {
-    if (selectedCategory === 'All') return PROJECTS;
-    return PROJECTS.filter((p) => p.category === selectedCategory);
-  }, [selectedCategory]);
+    if (selectedCategory === 'All') return visibleProjects;
+    return visibleProjects.filter((p) => p.category === selectedCategory);
+  }, [selectedCategory, visibleProjects]);
 
   // Clean URL synchronization (/work/project-id)
   useEffect(() => {
@@ -31,16 +37,16 @@ export const Projects: React.FC = () => {
       const path = window.location.pathname;
       if (path.startsWith('/work/')) {
         const slug = path.replace('/work/', '').trim();
-        const found = PROJECTS.find((p) => p.id === slug);
+        const found = visibleProjects.find((p) => p.id === slug);
         if (found) {
           setActiveProject(found);
           setIsModalOpen(true);
-          document.title = `${found.title} | Case Study by Alex Vance`;
+          document.title = `${found.title} | Case Study by Happy Person`;
         }
       } else if (path === '/' || path === '') {
         if (isModalOpen) {
           setIsModalOpen(false);
-          document.title = 'Alex Vance | Freelance Web Designer & Developer';
+          document.title = 'Happy Person | Independent Creative Web & UI Studio';
         }
       }
     };
@@ -50,26 +56,26 @@ export const Projects: React.FC = () => {
 
     window.addEventListener('popstate', handleLocationChange);
     return () => window.removeEventListener('popstate', handleLocationChange);
-  }, []);
+  }, [visibleProjects, isModalOpen]);
 
   const handleOpenDetails = (project: Project) => {
     setActiveProject(project);
     setIsModalOpen(true);
     // Push clean URL to browser history
     window.history.pushState({ projectId: project.id }, '', `/work/${project.id}`);
-    document.title = `${project.title} | Case Study by Alex Vance`;
+    document.title = `${project.title} | Case Study by Happy Person`;
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     window.history.pushState({}, '', '/');
-    document.title = 'Alex Vance | Freelance Web Designer & Developer';
+    document.title = 'Happy Person | Independent Creative Web & UI Studio';
   };
 
   const handleSelectModalProject = (project: Project) => {
     setActiveProject(project);
     window.history.replaceState({ projectId: project.id }, '', `/work/${project.id}`);
-    document.title = `${project.title} | Case Study by Alex Vance`;
+    document.title = `${project.title} | Case Study by Happy Person`;
   };
 
   return (

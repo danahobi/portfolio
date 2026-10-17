@@ -1,8 +1,10 @@
 import React from 'react';
-import { Github, Linkedin, Facebook, MessageSquare, ArrowUp } from 'lucide-react';
-import { PROFILE_INFO, SERVICES } from '../data/portfolioData';
+import { Github, Linkedin, Facebook, MessageSquare, ArrowUp, Heart, Smile } from 'lucide-react';
+import { usePortfolioData } from '../context/PortfolioDataContext';
+import { MessengerIcon } from './icons/MessengerIcon';
 
 export const Footer: React.FC = () => {
+  const { profile, services } = usePortfolioData();
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -27,43 +29,50 @@ export const Footer: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
           
-          {/* Brand & Intro (Cols 1-5) */}
+          {/* Brand & Intro with Mascot Avatar (Cols 1-5) */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs">
-                {PROFILE_INFO.shortName}
+              <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-blue-600 border border-neutral-200 dark:border-neutral-700 shadow-xs shrink-0">
+                <img
+                  src={profile.avatar}
+                  alt="Happy Person cat monster mascot"
+                  width={44}
+                  height={44}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-lg font-bold tracking-tight text-neutral-950 dark:text-white">
-                {PROFILE_INFO.name}
-              </span>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-lg font-bold tracking-tight text-neutral-950 dark:text-white">
+                    {profile.brandName}
+                  </span>
+                  <Smile className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">
+                  {profile.studioType}
+                </span>
+              </div>
             </div>
             
             <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm">
-              Freelance web designer and frontend developer creating responsive websites, appointment booking systems, and clean web app interfaces with Google AI Studio.
+              An independent creative studio designing and developing modern websites, appointment booking portals, and web app interfaces with Google AI Studio.
             </p>
 
-            {/* Social Icons */}
+            {/* Social Icons with Messenger as Primary */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={PROFILE_INFO.socials.github}
+                href={profile.messengerUrl || profile.socials?.messenger || 'https://m.me/happyperson.dev'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
-                aria-label="GitHub profile"
+                className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 flex items-center justify-center transition-all shadow-2xs focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="Facebook Messenger chat"
+                title="Message on Messenger (Fastest Reply)"
               >
-                <Github className="w-4 h-4" />
+                <MessengerIcon className="w-4 h-4 fill-current" />
               </a>
               <a
-                href={PROFILE_INFO.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
-                aria-label="LinkedIn profile"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href={PROFILE_INFO.socials.facebook}
+                href={profile.socials?.facebook || 'https://facebook.com'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
@@ -72,13 +81,32 @@ export const Footer: React.FC = () => {
                 <Facebook className="w-4 h-4" />
               </a>
               <a
-                href={PROFILE_INFO.socials.whatsapp}
+                href={profile.socials?.whatsapp || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-emerald-50 dark:hover:bg-emerald-950/60 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
-                aria-label="WhatsApp chat"
+                aria-label="WhatsApp chat (Secondary)"
+                title="WhatsApp (Secondary)"
               >
                 <MessageSquare className="w-4 h-4" />
+              </a>
+              <a
+                href={profile.socials?.github || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="GitHub profile"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href={profile.socials?.linkedin || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-neutral-100 dark:bg-[#171f33] hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-neutral-700 dark:text-neutral-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-500"
+                aria-label="LinkedIn profile"
+              >
+                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -108,7 +136,7 @@ export const Footer: React.FC = () => {
               Services
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm">
-              {SERVICES.map((s) => (
+              {services.map((s) => (
                 <li key={s.id}>
                   <a
                     href="#contact"
@@ -126,13 +154,13 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-neutral-200/80 dark:border-[#1e293b] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 dark:text-neutral-500">
           <div>
-            © {new Date().getFullYear()} {PROFILE_INFO.name}. All rights reserved.
+            © {new Date().getFullYear()} {profile.brandName || 'Happy Person'}. All rights reserved.
           </div>
 
-          <div className="flex items-center gap-1">
-            <span>Made with care using</span>
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Google AI Studio</span>
-            <span>& modern frontend code.</span>
+          <div className="flex items-center gap-1.5">
+            <span>Crafted with care by</span>
+            <span className="font-semibold text-neutral-700 dark:text-neutral-300">Happy Person</span>
+            <span>using Google AI Studio.</span>
           </div>
 
           <button

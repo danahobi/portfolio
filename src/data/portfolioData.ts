@@ -1,23 +1,28 @@
 import { Project, Service, Testimonial, PricingPlan, FaqItem } from '../types';
 
 export const PROFILE_INFO = {
-  name: "Alex Vance",
-  shortName: "AV",
-  title: "Freelance Web Designer & Frontend Developer",
+  name: "Happy Person",
+  brandName: "Happy Person",
+  studioType: "Independent Creative Web & UI Studio",
+  shortName: "HP",
+  title: "Independent Creative Web Designer & UI Developer",
   headline: "I design and build modern websites that help businesses get more customers.",
-  subheading: "Custom web design, responsive websites, booking systems, dashboards, and AI-powered web app UIs.",
-  avatar: "/src/assets/images/hero_profile_portrait_1792086718428.jpg",
-  bio: "Hi, I'm Alex. I specialize in turning business ideas into clean, fast, and high-converting web experiences. Using Google AI Studio, React, TypeScript, and modern styling, I build everything from local service landing pages and appointment booking systems to high-utility SaaS dashboards. I focus on clear communication, rapid delivery, and interfaces your customers will actually love using.",
-  email: "alex.vance.dev@gmail.com",
+  subheading: "Custom web design, responsive websites, booking systems, dashboards, and AI-powered web app UIs by Happy Person.",
+  avatar: "/src/assets/images/happy_person_mascot_1792166218374.jpg",
+  ogBanner: "/src/assets/images/happy_person_banner_1792166219172.jpg",
+  bio: "Hello! I'm Happy Person—an independent creative web designer and frontend developer represented by a friendly, reliable studio mascot. I specialize in turning business ideas into clean, fast, and high-converting digital experiences. Using Google AI Studio, React, TypeScript, and modern styling, I build everything from local service landing pages and appointment booking systems to high-utility SaaS dashboards. I bring a friendly, playful creative touch backed by rigorous engineering and clear, reliable communication.",
+  email: "hello@happyperson.dev",
   phone: "+1 (555) 349-2810",
   whatsapp: "+15553492810",
-  location: "Austin, TX / Remote Worldwide",
-  availability: "Available for Q4 Projects",
+  messengerUrl: "https://m.me/happyperson.dev",
+  location: "Independent Studio · Remote Worldwide",
+  availability: "Available for Q4 / Q1 Projects",
   socials: {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
     facebook: "https://facebook.com",
-    whatsapp: "https://wa.me/15553492810"
+    whatsapp: "https://wa.me/15553492810",
+    messenger: "https://m.me/happyperson.dev"
   },
   skills: [
     "Google AI Studio",
@@ -51,7 +56,7 @@ export const PROFILE_INFO = {
     },
     {
       label: "Working Style",
-      title: "Fast Delivery & Transparent Comms",
+      title: "Friendly, Fast & Reliable",
       desc: "Weekly milestones, mobile-first responsiveness, and post-launch maintenance."
     }
   ]
@@ -86,7 +91,7 @@ export const PROJECTS: Project[] = [
     ],
     screenshots: [
       "/src/assets/images/dental_clinic_mockup_1792086718777.jpg",
-      "/src/assets/images/hero_profile_portrait_1792086718428.jpg"
+      "/src/assets/images/happy_person_banner_1792166219172.jpg"
     ]
   },
   {
@@ -303,46 +308,100 @@ export const PROJECTS: Project[] = [
 
 export const SERVICES: Service[] = [
   {
-    id: "business-website",
-    title: "Business Website Design",
-    description: "Tailored multi-page websites for local businesses, corporate consulting, and service providers that establish authority and drive client inquiries.",
-    iconName: "Briefcase",
-    highlights: ["Custom brand styling", "Mobile-first responsive design", "Local SEO & schema optimization", "Lead capture forms"]
+    id: "website-design-dev",
+    title: "Website Design & Development",
+    description: "High-performance, bespoke business websites engineered for fast load speeds, search visibility, and converting visitors into loyal clients.",
+    iconName: "Globe",
+    highlights: [
+      "Custom responsive multi-page layout",
+      "Mobile-first design for all device viewports",
+      "Local SEO & structured schema integration",
+      "Clean TypeScript & React codebase"
+    ]
   },
   {
     id: "landing-page",
     title: "Landing Page Design",
     description: "High-converting single-page landing experiences built for marketing campaigns, product launches, event promotions, and lead generation.",
     iconName: "Rocket",
-    highlights: ["Frictionless conversion funnels", "A/B test ready structure", "Sub-second load times", "Analytics & pixel tracking"]
+    highlights: [
+      "Frictionless conversion & lead capture funnels",
+      "A/B test ready section architecture",
+      "Sub-second load times & Core Web Vitals optimization",
+      "Analytics tracking & pixel integration"
+    ]
   },
   {
-    id: "booking-system",
+    id: "booking-appointment",
     title: "Booking & Appointment Website",
-    description: "Full-featured online scheduling platforms for clinics, salons, fitness studios, consultants, and restaurants with automated reminders.",
+    description: "Full-featured online scheduling platforms for clinics, salons, fitness studios, and consultants that eliminate phone tag and appointment no-shows.",
     iconName: "Calendar",
-    highlights: ["Interactive calendar slot booking", "Email & SMS notifications", "Google / Outlook sync", "Pre-payment or deposit flow"]
+    highlights: [
+      "Real-time calendar slot reservation engine",
+      "Automated email & SMS confirmation alerts",
+      "Practitioner / specialist selection flow",
+      "Google & Outlook calendar two-way sync"
+    ]
   },
   {
     id: "ecommerce-ui",
     title: "E-commerce UI Design",
     description: "Clean, frictionless shopping interfaces with modern catalog grids, quick-view modals, cart slide-outs, and streamlined checkout experiences.",
     iconName: "ShoppingBag",
-    highlights: ["Responsive product catalogs", "Smooth cart drawer & filter UX", "Shopify / Stripe integration", "Mobile payment ready"]
+    highlights: [
+      "Responsive product catalogs with faceted filters",
+      "Smooth cart drawer & quick-checkout UX",
+      "Shopify & Stripe payment flow integration",
+      "Wishlist management & inventory states"
+    ]
   },
   {
     id: "saas-dashboard",
     title: "SaaS Dashboard UI",
     description: "Modern web application interfaces, admin consoles, and analytics dashboards with intuitive navigation, dark mode, and interactive charts.",
     iconName: "LayoutDashboard",
-    highlights: ["Modular component system", "Data tables & chart libraries", "User role permission layouts", "Keyboard navigation & accessibility"]
+    highlights: [
+      "Interactive data charts & tabular metric views",
+      "Kanban workflow & task pipeline boards",
+      "User role permission & team access layouts",
+      "Keyboard shortcuts & WCAG accessibility"
+    ]
   },
   {
-    id: "redesign-maintenance",
-    title: "Website Redesign & Maintenance",
-    description: "Revamping sluggish or outdated websites into fast, modern standards with continuous security updates, speed audits, and content updates.",
-    iconName: "RefreshCw",
-    highlights: ["Performance & Core Web Vitals boost", "Responsive overhaul", "Ongoing technical support", "Hosting & SSL configuration"]
+    id: "logo-brand-identity",
+    title: "Logo Design & Brand Identity",
+    description: "Distinctive, memorable brand marks, cohesive visual systems, and mascot direction that make your business instantly recognizable and trusted.",
+    iconName: "Palette",
+    highlights: [
+      "Primary, secondary & monogram logo variations",
+      "Cohesive brand color palette & typography kit",
+      "Vector SVG, PNG, and print-ready export files",
+      "Brand style guide & mascot visual identity"
+    ]
+  },
+  {
+    id: "marketing-social-design",
+    title: "Banner, Social Media & Marketing Design",
+    description: "High-impact promotional graphics, ad banners, and branded social assets tailored to stop the scroll and drive clicks across all platforms.",
+    iconName: "Megaphone",
+    highlights: [
+      "High-converting ad banners (Meta, Google, LinkedIn)",
+      "Cohesive social media post & story templates",
+      "Email newsletter headers & promotional banners",
+      "Product launch announcement graphic packages"
+    ]
+  },
+  {
+    id: "ai-image-video",
+    title: "AI Image & AI Video Creation",
+    description: "Cutting-edge AI-generated visual media and cinematic video content tailored for product visuals, social media content, ads, brand mascots, promotional videos, and website hero visuals.",
+    iconName: "Video",
+    highlights: [
+      "Photorealistic product visuals & 3D renders",
+      "Custom brand mascots & character assets",
+      "Promotional videos & social media motion clips",
+      "Website hero backgrounds & ad creative visuals"
+    ]
   }
 ];
 
@@ -384,7 +443,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Founder & Lead Dentist",
     businessType: "BrightSmile Dental Practice",
     rating: 5,
-    quote: "Alex transformed our chaotic phone booking system into an effortless online appointment portal. Our staff saves 15+ hours each week, and new patient bookings climbed by over 140% in just two months. He communicates clearly and delivers ahead of schedule.",
+    quote: "Happy Person transformed our chaotic phone booking system into an effortless online appointment portal. Our staff saves 15+ hours each week, and new patient bookings climbed by over 140% in just two months. Super friendly communication and delivered ahead of schedule.",
     avatar: "https://images.unsplash.com/photo-1594824813576-928d1f2bdf17?w=160&auto=format&fit=crop&q=80",
     location: "Austin, Texas"
   },
@@ -394,7 +453,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Managing Director",
     businessType: "UrbanEats Hospitality Group",
     rating: 5,
-    quote: "Our previous restaurant website was an ancient PDF link. Alex built us a stunning, moody website that showcases our evening dinner service and lets guests reserve tables in seconds. Friday and Saturday bookings are consistently packed thanks to this site.",
+    quote: "Our previous restaurant website was an ancient PDF link. Happy Person built us a stunning, moody website that showcases our evening dinner service and lets guests reserve tables in seconds. Friday and Saturday bookings are consistently packed thanks to this site.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&auto=format&fit=crop&q=80",
     location: "Denver, Colorado"
   },
@@ -404,7 +463,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Principal Broker",
     businessType: "HomeNest Luxury Realty",
     rating: 5,
-    quote: "In high-end real estate, presentation is everything. Alex delivered a fast, visually pristine property showcase with custom filter capabilities that rivals national brokerages. Working with him was smooth, collaborative, and entirely stress-free.",
+    quote: "In high-end real estate, presentation is everything. Happy Person delivered a fast, visually pristine property showcase with custom filter capabilities that rivals national brokerages. Working with this studio was collaborative, transparent, and entirely stress-free.",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&auto=format&fit=crop&q=80",
     location: "Miami, Florida"
   }
@@ -435,7 +494,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     price: "$999",
     subtitle: "Complete multi-page website for established businesses and service companies seeking growth.",
     turnaroundTime: "1 to 2 weeks",
-    serviceCategory: "Business Website Design",
+    serviceCategory: "Website Design & Development",
     isRecommended: true,
     features: [
       "Up to 5 custom-designed pages (Home, About, Services, Gallery, Contact)",
@@ -471,6 +530,10 @@ export const PRICING_PLANS: PricingPlan[] = [
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
+    question: "Who is Happy Person?",
+    answer: "Happy Person is an independent creative web design and frontend studio. Founded on the belief that modern business websites should be friendly, fast, and high-converting, I work directly with clients to turn complex problems into clean, delightfully usable digital interfaces."
+  },
+  {
     question: "How long does a website take to build?",
     answer: "A focused high-converting landing page takes about 3 to 5 business days. A complete 5-page business website takes 1 to 2 weeks. More complex web applications, booking portals, or dashboard UIs take 2 to 4 weeks depending on specific features."
   },
@@ -492,6 +555,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "How does Google AI Studio fit into your workflow?",
-    answer: "I leverage Google AI Studio to accelerate prototyping, generate tailored design mockups, and architect robust frontend code in record time. This allows me to deliver agency-grade websites at freelance rates with faster turnaround times for my clients."
+    answer: "I leverage Google AI Studio to accelerate prototyping, generate tailored design mockups, and architect robust frontend code in record time. This allows Happy Person to deliver agency-grade websites at independent studio agility with faster turnaround times for my clients."
   }
 ];

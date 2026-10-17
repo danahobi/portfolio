@@ -24,6 +24,10 @@ export interface Project {
   client: string;
   duration: string;
   impactMetrics?: { label: string; value: string }[];
+  featured?: boolean;
+  hidden?: boolean;
+  order?: number;
+  updatedAt?: string;
 }
 
 export interface Service {
@@ -32,6 +36,8 @@ export interface Service {
   description: string;
   iconName: string;
   highlights: string[];
+  order?: number;
+  updatedAt?: string;
 }
 
 export interface Testimonial {
@@ -43,6 +49,8 @@ export interface Testimonial {
   quote: string;
   avatar: string;
   location: string;
+  order?: number;
+  updatedAt?: string;
 }
 
 export interface PricingPlan {
@@ -54,9 +62,41 @@ export interface PricingPlan {
   isRecommended: boolean;
   serviceCategory: string;
   turnaroundTime: string;
+  order?: number;
+  updatedAt?: string;
 }
 
 export interface FaqItem {
+  id?: string;
   question: string;
   answer: string;
+  order?: number;
+  updatedAt?: string;
+}
+
+export interface SiteProfile {
+  name: string;
+  brandName: string;
+  studioType: string;
+  shortName: string;
+  title: string;
+  headline: string;
+  subheading: string;
+  bio: string;
+  avatar: string;
+  ogBanner: string;
+  email: string;
+  phone: string;
+  whatsapp: string;
+  messengerUrl?: string;
+  location: string;
+  availability: string;
+  socials: {
+    github: string;
+    linkedin: string;
+    facebook: string;
+    whatsapp: string;
+    messenger?: string;
+  };
+  skills: string[];
 }

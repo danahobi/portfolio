@@ -3,52 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Alex Vance | Freelance Web Designer & Developer</title>
-    <meta name="description" content="Alex Vance is a freelance web designer and frontend developer building high-converting responsive websites, appointment booking portals, and custom SaaS web app interfaces." />
-    <meta name="keywords" content="Freelance Web Designer, Frontend Developer, React Developer, TypeScript, Tailwind CSS, Google AI Studio, Booking Websites, SaaS UI Design" />
-    <meta name="author" content="Alex Vance" />
-    <link rel="canonical" href="https://alexvance.dev/" />
+    <title>Happy Person | Independent Creative Web & UI Studio</title>
+    <meta name="description" content="Happy Person is an independent creative web designer and UI studio crafting modern, high-converting websites, booking portals, and web app interfaces using Google AI Studio." />
+    <meta name="keywords" content="Happy Person, Creative Web Studio, Freelance Web Designer, Frontend Developer, React Developer, TypeScript, Tailwind CSS, Google AI Studio, Booking Websites, SaaS UI Design" />
+    <meta name="author" content="Happy Person" />
+    <link rel="canonical" href="https://happyperson.dev/" />
+
+    <!-- Anti-Flash Theme Script (Runs synchronously before first paint) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio_theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://alexvance.dev/" />
-    <meta property="og:site_name" content="Alex Vance Portfolio" />
-    <meta property="og:title" content="Alex Vance | Freelance Web Designer & Developer" />
-    <meta property="og:description" content="Custom web design, responsive websites, appointment booking systems, dashboards, and AI-powered web app UIs." />
-    <meta property="og:image" content="https://alexvance.dev/og-cover.jpg" />
+    <meta property="og:url" content="https://happyperson.dev/" />
+    <meta property="og:site_name" content="Happy Person Creative Studio" />
+    <meta property="og:title" content="Happy Person | Independent Creative Web & UI Studio" />
+    <meta property="og:description" content="I design and build modern websites that help businesses get more customers. Custom web design, responsive websites, booking systems, dashboards, and AI-powered web app UIs." />
+    <meta property="og:image" content="/src/assets/images/happy_person_banner_1792166219172.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Alex Vance - Freelance Web Designer and Developer Portfolio" />
+    <meta property="og:image:alt" content="Happy Person - Independent Creative Web and UI Studio" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Alex Vance | Freelance Web Designer & Developer" />
-    <meta name="twitter:description" content="Custom web design, responsive websites, booking systems, dashboards, and AI-powered web app UIs." />
-    <meta name="twitter:image" content="https://alexvance.dev/og-cover.jpg" />
+    <meta name="twitter:title" content="Happy Person | Independent Creative Web & UI Studio" />
+    <meta name="twitter:description" content="I design and build modern websites that help businesses get more customers. Custom web design, booking systems, and dashboards." />
+    <meta name="twitter:image" content="/src/assets/images/happy_person_banner_1792166219172.jpg" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='16' y='21' font-family='sans-serif' font-size='14' font-weight='bold' fill='white' text-anchor='middle'>AV</text></svg>" />
+    <!-- Favicon featuring Happy Person cat-monster mascot -->
+    <link rel="icon" type="image/jpeg" href="/src/assets/images/happy_person_mascot_1792166218374.jpg" />
 
     <!-- Fonts preconnect and preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Schema.org Structured Data (Person + ProfessionalService) -->
+    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://alexvance.dev/#person",
-          "name": "Alex Vance",
-          "jobTitle": "Freelance Web Designer and Frontend Developer",
-          "url": "https://alexvance.dev/",
-          "email": "mailto:alex.vance.dev@gmail.com",
+          "@id": "https://happyperson.dev/#brand",
+          "name": "Happy Person",
+          "jobTitle": "Independent Creative Web Designer & UI Developer",
+          "url": "https://happyperson.dev/",
+          "image": "/src/assets/images/happy_person_mascot_1792166218374.jpg",
+          "email": "mailto:hello@happyperson.dev",
           "telephone": "+1-555-349-2810",
-          "description": "Freelance web designer and developer creating fast, conversion-focused websites, clinic booking platforms, restaurant portals, and SaaS dashboards.",
+          "description": "Happy Person is an independent creative brand and web design studio crafting fast, conversion-focused websites, clinic booking platforms, restaurant portals, and SaaS dashboards.",
           "knowsAbout": [
             "Web UI Design",
             "Frontend Development",
@@ -67,12 +85,10 @@
         },
         {
           "@type": "ProfessionalService",
-          "@id": "https://alexvance.dev/#service",
-          "name": "Alex Vance Web Design & Development",
-          "url": "https://alexvance.dev/",
-          "founder": {
-            "@id": "https://alexvance.dev/#person"
-          },
+          "@id": "https://happyperson.dev/#service",
+          "name": "Happy Person Creative Studio",
+          "url": "https://happyperson.dev/",
+          "image": "/src/assets/images/happy_person_mascot_1792166218374.jpg",
           "priceRange": "$$$",
           "areaServed": "Worldwide",
           "hasOfferCatalog": {
@@ -83,7 +99,7 @@
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Business Website Design"
+                  "name": "Website Design & Development"
                 }
               },
               {
@@ -114,7 +130,7 @@
     }
     </script>
   </head>
-  <body class="bg-neutral-50 dark:bg-[#0b0f17] text-neutral-900 dark:text-neutral-100 antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200">
+  <body class="bg-slate-50 dark:bg-[#0b0f17] text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-600 selection:text-white transition-colors duration-250">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

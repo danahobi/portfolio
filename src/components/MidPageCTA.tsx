@@ -35,7 +35,7 @@ export const MidPageCTA: React.FC<MidPageCTAProps> = ({ onStartProject }) => {
                 onClick={onStartProject}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-blue-700 hover:bg-neutral-100 font-bold text-sm shadow-md transition-all cursor-pointer active:scale-95"
               >
-                <span>Start a Project With Me</span>
+                <span>Start a Project with Happy Person</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 

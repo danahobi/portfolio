@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, Download, Printer, CheckCircle2, Briefcase, GraduationCap, Code } from 'lucide-react';
+import { X, Download, Printer, Code, Briefcase, GraduationCap, Sparkles } from 'lucide-react';
 import { PROFILE_INFO } from '../data/portfolioData';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+  const { profile } = usePortfolioData();
   if (!isOpen) return null;
 
   const handlePrint = () => {
@@ -15,39 +17,36 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   };
 
   const handleDownload = () => {
-    // Generate downloadable text/markdown resume
-    const resumeText = `# Alex Vance - Freelance Web Designer & Developer
-Austin, TX / Remote Worldwide | ${PROFILE_INFO.email} | ${PROFILE_INFO.phone}
+    const resumeText = `# Happy Person - Independent Creative Web & UI Studio
+${profile.location || PROFILE_INFO.location} | ${profile.email || PROFILE_INFO.email} | ${profile.phone || PROFILE_INFO.phone}
 
-## Summary
-Freelance frontend developer & UI designer crafting modern, high-converting websites, appointment booking portals, and SaaS dashboards with Google AI Studio, React, TypeScript, and Tailwind CSS.
+## Studio Profile
+Happy Person is an independent creative brand and frontend studio crafting modern, high-converting websites, appointment booking portals, and SaaS dashboards with Google AI Studio, React, TypeScript, and Tailwind CSS.
 
-## Core Technical Skills
-- Frontend: React, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS
-- Prototyping & AI: Google AI Studio, Figma, Gemini API
-- Backend & Databases: Node.js, Express, Firebase Firestore, Supabase, PostgreSQL
-- Tooling: Git, GitHub, Vite, Vercel, Netlify
+## Core Technical & Design Competencies
+- Frontend & UI: React, TypeScript, JavaScript (ES6+), HTML5, Tailwind CSS, Motion, Component Systems, WCAG AA Accessibility
+- Prototyping & AI: Google AI Studio, Figma, Gemini API rapid prototyping
+- Backend & Integrations: Node.js, Express, Firebase Firestore, Supabase, Calendar APIs, Stripe Checkout
+- DevOps & Deployment: Git, GitHub, Vite, Vercel, Netlify, Cloud Run
 
-## Featured Client Deliverables
+## Selected Production Deliverables
 - BrightSmile Dental Clinic: Real-time booking portal reducing no-shows by 38%
 - UrbanEats Restaurant: Digital menu & instant table reservation platform
 - HomeNest Real Estate: High-end property listing app with faceted search
 - TaskFlow Dashboard: Modern SaaS analytics console with interactive visualizations
 
-## Work Experience
-Freelance Web Designer & Developer (2022 - Present)
-- Delivered 20+ responsive web projects for small businesses and clinics.
-- Maintained a 100% on-time delivery record with average PageSpeed scores over 95.
-
-## Education
-B.S. in Computer Science / Interactive Media Design
+## Working Philosophy
+Independent Creative Studio (2022 - Present)
+- Delivered 20+ responsive web projects for businesses, clinics, and hospitality brands.
+- Maintained a 100% on-time delivery record with average Google PageSpeed scores of 98+.
+- Friendly, transparent communication with weekly milestones and 30-day warranty.
 `;
 
     const blob = new Blob([resumeText], { type: 'text/markdown;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Alex_Vance_Resume.md');
+    link.setAttribute('download', 'Happy_Person_Studio_Deck.md');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -55,38 +54,50 @@ B.S. in Computer Science / Interactive Media Design
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-3xl bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden my-8"
+        className="relative w-full max-w-3xl bg-white dark:bg-[#111726] rounded-3xl shadow-2xl border border-neutral-200 dark:border-[#1e293b] overflow-hidden my-8"
         role="dialog"
         aria-modal="true"
         aria-labelledby="resume-title"
       >
         {/* Header bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/80">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-neutral-900 dark:text-neutral-100">Curriculum Vitae (CV)</span>
-            <span className="text-xs px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-medium">Updated 2026</span>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 dark:border-[#1e293b] bg-neutral-50 dark:bg-[#0e1422]">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl overflow-hidden bg-blue-600 shrink-0">
+              <img
+                src={profile.avatar}
+                alt="Happy Person mascot"
+                width={32}
+                height={32}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <span className="font-bold text-neutral-900 dark:text-neutral-100 text-sm">Happy Person Studio Profile</span>
+              <span className="text-[10px] ml-2 px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-semibold">2026 Edition</span>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="p-2 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer text-xs flex items-center gap-1.5"
-              title="Print CV"
+              className="p-2 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-[#1e293b] rounded-lg transition-colors cursor-pointer text-xs flex items-center gap-1.5"
+              title="Print Overview"
             >
               <Printer className="w-4 h-4" />
               <span className="hidden sm:inline">Print</span>
             </button>
             <button
               onClick={handleDownload}
-              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors cursor-pointer text-xs font-medium flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors cursor-pointer text-xs font-semibold flex items-center gap-1.5"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download (.MD)</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer ml-2"
+              className="p-1.5 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-200 dark:hover:bg-[#1e293b] rounded-lg transition-colors cursor-pointer ml-2"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -98,29 +109,41 @@ B.S. in Computer Science / Interactive Media Design
         <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto space-y-6 text-sm text-neutral-700 dark:text-neutral-300">
           
           {/* Header Info */}
-          <div className="border-b border-neutral-200 dark:border-neutral-800 pb-6">
-            <h2 id="resume-title" className="text-2xl font-bold text-neutral-950 dark:text-white">
-              {PROFILE_INFO.name}
-            </h2>
-            <p className="text-blue-600 dark:text-blue-400 font-medium mt-0.5">
-              {PROFILE_INFO.title}
-            </p>
-            <div className="flex flex-wrap gap-4 text-xs text-neutral-500 dark:text-neutral-400 mt-2">
-              <span>{PROFILE_INFO.location}</span>
-              <span>·</span>
-              <span>{PROFILE_INFO.email}</span>
-              <span>·</span>
-              <span>{PROFILE_INFO.phone}</span>
+          <div className="border-b border-neutral-200 dark:border-[#1e293b] pb-6 flex items-start gap-4">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-blue-100 dark:bg-blue-950/60 border border-neutral-200 dark:border-neutral-700 shrink-0">
+              <img
+                src={profile.avatar}
+                alt="Happy Person cat monster mascot"
+                width={64}
+                height={64}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 id="resume-title" className="text-2xl font-bold text-neutral-950 dark:text-white">
+                {profile.brandName || PROFILE_INFO.brandName}
+              </h2>
+              <p className="text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+                {profile.studioType || PROFILE_INFO.studioType}
+              </p>
+              <div className="flex flex-wrap gap-3 text-xs text-neutral-500 dark:text-neutral-400 mt-2">
+                <span>{profile.location || PROFILE_INFO.location}</span>
+                <span>·</span>
+                <span>{profile.email || PROFILE_INFO.email}</span>
+                <span>·</span>
+                <span>{profile.phone || PROFILE_INFO.phone}</span>
+              </div>
             </div>
           </div>
 
           {/* About section */}
           <div>
             <h3 className="text-xs uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-              Professional Summary
+              Studio Summary & Persona
             </h3>
             <p className="leading-relaxed">
-              Freelance web designer and developer specializing in creating high-performance, conversion-oriented websites and modern web app interfaces using Google AI Studio, React, TypeScript, and Tailwind CSS. Proven track record in rapid prototyping, clean code architectures, and user-centric booking workflows.
+              Happy Person is an independent creative studio specializing in high-performance, conversion-oriented websites and modern web app interfaces. Designed with a friendly, approachable cat-monster mascot identity, the studio combines rapid Google AI Studio workflows with production-grade React and TypeScript engineering.
             </p>
           </div>
 
@@ -128,16 +151,16 @@ B.S. in Computer Science / Interactive Media Design
           <div>
             <h3 className="text-xs uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500 mb-3 flex items-center gap-1.5">
               <Code className="w-4 h-4 text-blue-500" />
-              <span>Technical Competencies</span>
+              <span>Core Technical Capabilities</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-800">
-                <span className="font-semibold block text-neutral-900 dark:text-white mb-1">Frontend & UI</span>
-                <span className="text-neutral-600 dark:text-neutral-400">React, TypeScript, Tailwind CSS, Responsive Design, WCAG AA Accessibility, Motion, Component Systems</span>
+              <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#131b2e] border border-neutral-200/80 dark:border-[#1e293b]">
+                <span className="font-semibold block text-neutral-900 dark:text-white mb-1">Frontend & UI Engineering</span>
+                <span className="text-neutral-600 dark:text-neutral-400">React, TypeScript, Tailwind CSS, Responsive Mobile-First Design, WCAG AA Accessibility, CSS Transforms</span>
               </div>
-              <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/80 dark:border-neutral-800">
-                <span className="font-semibold block text-neutral-900 dark:text-white mb-1">AI & Development Tools</span>
-                <span className="text-neutral-600 dark:text-neutral-400">Google AI Studio, Git, GitHub, Vite, Firebase, Supabase, REST APIs, Vercel & Netlify Deployment</span>
+              <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-[#131b2e] border border-neutral-200/80 dark:border-[#1e293b]">
+                <span className="font-semibold block text-neutral-900 dark:text-white mb-1">Modern AI & Tooling</span>
+                <span className="text-neutral-600 dark:text-neutral-400">Google AI Studio Prototyping, Git, Vite, Firebase, Supabase, Calendar APIs, High-Performance Hosting</span>
               </div>
             </div>
           </div>
@@ -146,49 +169,38 @@ B.S. in Computer Science / Interactive Media Design
           <div>
             <h3 className="text-xs uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500 mb-3 flex items-center gap-1.5">
               <Briefcase className="w-4 h-4 text-blue-500" />
-              <span>Selected Project Milestones</span>
+              <span>Featured Project Deliverables</span>
             </h3>
             <div className="space-y-4">
               <div className="relative pl-4 border-l-2 border-blue-500">
                 <div className="flex justify-between items-baseline">
-                  <h4 className="font-semibold text-neutral-900 dark:text-white">Healthcare Booking Portals</h4>
-                  <span className="text-xs text-neutral-500 font-mono">2025 – Present</span>
+                  <h4 className="font-semibold text-neutral-950 dark:text-white">Automated Booking Portals</h4>
+                  <span className="text-xs text-neutral-500 font-mono">2025 – 2026</span>
                 </div>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                  Engineered automated appointment scheduling systems for dental clinics and wellness centers, featuring automated confirmation SMS/emails and patient intake forms.
+                  Engineered multi-step appointment scheduling systems for dental clinics and wellness centers with SMS/email confirmations and calendar slot syncing.
                 </p>
               </div>
 
               <div className="relative pl-4 border-l-2 border-neutral-300 dark:border-neutral-700">
                 <div className="flex justify-between items-baseline">
-                  <h4 className="font-semibold text-neutral-900 dark:text-white">High-Impact Business & Hospitality Websites</h4>
-                  <span className="text-xs text-neutral-500 font-mono">2024 – Present</span>
+                  <h4 className="font-semibold text-neutral-950 dark:text-white">High-Impact Business & Hospitality Websites</h4>
+                  <span className="text-xs text-neutral-500 font-mono">2024 – 2026</span>
                 </div>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                  Built modern websites for restaurants, real estate brokerages, and local services resulting in an average 40%+ increase in qualified customer inquiries.
+                  Designed sensory-rich dining and luxury real estate platforms resulting in an average 40%+ increase in online client reservations and direct inquiries.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Education */}
-          <div>
-            <h3 className="text-xs uppercase font-bold tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 flex items-center gap-1.5">
-              <GraduationCap className="w-4 h-4 text-blue-500" />
-              <span>Education & Certifications</span>
-            </h3>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400">
-              Bachelor of Science in Interactive Media & Computer Science · Certified Frontend Developer & UX Specialist
-            </p>
-          </div>
-
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-neutral-50 dark:bg-neutral-900/80 border-t border-neutral-200 dark:border-neutral-800 flex justify-end">
+        <div className="px-6 py-4 bg-neutral-50 dark:bg-[#0e1422] border-t border-neutral-200 dark:border-[#1e293b] flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 rounded-xl transition-colors cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-[#1e293b] rounded-xl transition-colors cursor-pointer"
           >
             Close
           </button>

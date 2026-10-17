@@ -16,37 +16,30 @@ import { Pricing } from './components/Pricing';
 import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { FloatingContactButton } from './components/FloatingContactButton';
+import { AdminRoute } from './components/admin/AdminRoute';
+import { useTheme } from './context/ThemeContext';
 
 export default function App() {
-  // Theme state respecting system preference & localStorage
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('portfolio_theme');
-      if (stored === 'light' || stored === 'dark') return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'dark';
-  });
-
+  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState<string>('home');
 
-  // Pre-fill state for contact form when user triggers service or pricing cards
-  const [selectedService, setSelectedService] = useState<string>('Business Website Design');
-  const [selectedBudget, setSelectedBudget] = useState<string>('$500 - $1,000');
+  // Owner Admin Route detection (/admin or #admin)
+  const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    return path === '/admin' || path.startsWith('/admin/') || hash === '#admin' || hash === '#/admin';
+  });
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('portfolio_theme', theme);
-  }, [theme]);
+  // Pre-fill state for contact form when user triggers service or pricing cards
+  const [selectedService, setSelectedService] = useState<string>('Website Design & Development');
+  const [selectedBudget, setSelectedBudget] = useState<string>('$500 - $1,000');
 
   // Track active section for navbar indicator
   useEffect(() => {
     const handleScroll = () => {
+      if (isAdminRoute) return;
       const sections = ['home', 'about', 'services', 'projects', 'process', 'testimonials', 'pricing', 'contact'];
       const scrollY = window.pageYOffset;
 
@@ -65,11 +58,43 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isAdminRoute]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  // Route listener for /admin or #admin & owner keyboard gateway
+  useEffect(() => {
+    const checkRoute = () => {
+      const path = window.location.pathname;
+      const hash = window.location.hash;
+      const matchesAdmin = path === '/admin' || path.startsWith('/admin/') || hash === '#admin' || hash === '#/admin';
+      setIsAdminRoute(matchesAdmin);
+    };
+
+    window.addEventListener('popstate', checkRoute);
+    window.addEventListener('hashchange', checkRoute);
+
+    // Discrete keyboard shortcut for website owner (Ctrl+Shift+A or Cmd+Shift+A)
+    const handleKeyNav = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setIsAdminRoute((prev) => {
+          const next = !prev;
+          if (next) {
+            window.history.pushState({}, '', '/admin');
+          } else {
+            window.history.pushState({}, '', '/');
+          }
+          return next;
+        });
+      }
+    };
+    window.addEventListener('keydown', handleKeyNav);
+
+    return () => {
+      window.removeEventListener('popstate', checkRoute);
+      window.removeEventListener('hashchange', checkRoute);
+      window.removeEventListener('keydown', handleKeyNav);
+    };
+  }, []);
 
   const scrollToContact = (service?: string, budget?: string) => {
     if (service) setSelectedService(service);
@@ -100,13 +125,24 @@ export default function App() {
     }
   };
 
+  // If viewing the private owner admin route
+  if (isAdminRoute) {
+    return (
+      <AdminRoute
+        onBackToSite={() => {
+          window.history.pushState({}, '', '/');
+          setIsAdminRoute(false);
+        }}
+      />
+    );
+  }
+
+  // Public visitor portfolio website (clean, zero exposed admin buttons or keys)
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-[#0b0f17] text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0b0f17] text-slate-900 dark:text-slate-100 transition-colors duration-250">
       
-      {/* 1. Sticky Responsive Navbar */}
+      {/* 1. Sticky Responsive Navbar with theme toggle */}
       <Navbar
-        theme={theme}
-        toggleTheme={toggleTheme}
         onHireMeClick={() => scrollToContact()}
         activeSection={activeSection}
       />
@@ -121,7 +157,7 @@ export default function App() {
         {/* 3. About Me Section */}
         <About />
 
-        {/* 4. Services Section */}
+        {/* 4. Services Section (8 Service Cards) */}
         <Services
           onRequestService={(serviceName) => scrollToContact(serviceName)}
         />
@@ -164,6 +200,9 @@ export default function App() {
 
       {/* 12. Footer */}
       <Footer />
+
+      {/* 13. Floating Contact Button (Messenger as primary) */}
+      <FloatingContactButton />
 
     </div>
   );

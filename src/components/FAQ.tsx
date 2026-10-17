@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { FAQ_ITEMS } from '../data/portfolioData';
 import { SectionHeader } from './ui/SectionHeader';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 export const FAQ: React.FC = () => {
+  const { faqs } = usePortfolioData();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleAccordion = (index: number) => {
@@ -24,7 +25,7 @@ export const FAQ: React.FC = () => {
 
         {/* Accordion List */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((item, index) => {
+          {faqs.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <div

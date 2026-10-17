@@ -1,13 +1,14 @@
 import React from 'react';
 import { Check, ArrowRight, Sparkles } from 'lucide-react';
-import { PRICING_PLANS } from '../data/portfolioData';
 import { SectionHeader } from './ui/SectionHeader';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 
 interface PricingProps {
   onSelectPlan: (planName: string, serviceCategory: string) => void;
 }
 
 export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
+  const { pricingPlans } = usePortfolioData();
   return (
     <section id="pricing" className="py-20 md:py-28 bg-neutral-100/60 dark:bg-[#0e1422] border-y border-neutral-200/80 dark:border-[#1e293b] transition-colors" aria-label="Pricing Packages">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,7 +22,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
 
         {/* 3 Pricing Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {PRICING_PLANS.map((plan) => (
+          {pricingPlans.map((plan) => (
             <div
               key={plan.id}
               className={`relative rounded-2xl p-8 transition-all flex flex-col justify-between ${
